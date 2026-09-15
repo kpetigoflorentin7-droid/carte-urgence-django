@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Carte créée</title>
+    <title>Badge créé</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 40px auto;
             text-align: center;
             padding: 0 16px;
+            background: #f5f5f5;
         }
-        .matricule { font-size: 20px; font-weight: bold; color: #0B3D91; margin: 10px 0 6px; }
-        .validite { color: #444; font-size: 13px; margin-bottom: 24px; }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .matricule {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0B3D91;
+            margin-bottom: 25px;
+        }
 
         .apercus {
             display: flex;
-            gap: 24px;
+            gap: 25px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 28px;
+            margin-bottom: 30px;
         }
 
         .carte {
             width: 342px;
             height: 216px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
             overflow: hidden;
             position: relative;
-            background: #fff;
+            background: white;
             text-align: left;
-            font-size: 11px;
         }
-        .carte .entete {
-            background: #0B3D91;
-            color: #fff;
-            font-weight: bold;
-            font-size: 12px;
-            text-align: center;
-            padding: 8px 4px;
-        }
-        .carte .contenu { padding: 8px 10px; }
 
+        .entete {
+            background: #0B3D91;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 9px 5px;
+            font-size: 12px;
+        }
+
+        .contenu {
+            padding: 10px;
+        }
+
+        /* RECTO */
         .carte-recto .photo {
             position: absolute;
-            top: 34px;
+            top: 38px;
             left: 10px;
             width: 76px;
             height: 96px;
@@ -53,45 +69,69 @@
             border-radius: 3px;
             object-fit: cover;
         }
+
         .carte-recto .champs {
-            margin-left: 96px;
+            margin-left: 95px;
             padding-top: 4px;
         }
-        .carte-recto .champs div { margin-bottom: 5px; line-height: 1.15; }
-        .carte-recto .champs b { color: #444; font-size: 10px; }
+
+        .carte-recto .champs div {
+            margin-bottom: 6px;
+            line-height: 1.15;
+            font-size: 10px;
+        }
+
+        .carte-recto .champs b {
+            color: #444;
+        }
+
+        .carte-recto .groupe {
+            position: absolute;
+            bottom: 30px;
+            left: 10px;
+            right: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #0B3D91;
+            font-size: 14px;
+        }
 
         .carte-recto .matricule-carte {
             position: absolute;
-            bottom: 20px;
+            bottom: 10px;
             width: 100%;
             text-align: center;
             font-weight: bold;
             color: #0B3D91;
-            font-size: 13px;
-        }
-        .carte-recto .footer {
-            position: absolute;
-            bottom: 6px;
-            left: 10px;
-            right: 10px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 8.5px;
-            color: #444;
+            font-size: 10px;
         }
 
-        .carte-verso .contenu div { margin-bottom: 10px; line-height: 1.3; }
-        .carte-verso .contenu b { color: #444; font-size: 10px; }
-        .carte-verso .qr {
-            position: absolute;
-            right: 14px;
-            bottom: 14px;
+        /* VERSO */
+        .carte-verso .verso-contenu {
             text-align: center;
+            padding-top: 15px;
         }
-        .carte-verso .qr img { width: 68px; height: 68px; display: block; }
-        .carte-verso .qr span { font-size: 8px; color: #444; }
 
-        a.bouton {
+        .carte-verso .qr img {
+            width: 120px;
+            height: 120px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .carte-verso .qr p {
+            font-size: 9px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .carte-verso .instructions {
+            font-size: 9px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .bouton {
             display: inline-block;
             margin-top: 10px;
             padding: 12px 24px;
@@ -103,58 +143,123 @@
         }
     </style>
 </head>
+
 <body>
-    <h1>Carte créée avec succès</h1>
-    <p>{{ personne.nom }} {{ personne.prenoms }}</p>
-    <div class="matricule">N° {{ personne.matricule }}</div>
-    <div class="validite">
-        Valable du {{ personne.date_emission|date:"d-m-Y" }} au {{ personne.date_expiration|date:"d-m-Y" }}
+
+    <h1>Badge créé avec succès</h1>
+
+    <div class="matricule">
+        N° {{ personne.matricule }}
     </div>
 
     <div class="apercus">
 
+        <!-- RECTO -->
         <div class="carte carte-recto">
-            <div class="entete">CARTE D'URGENCE - IDENTIFICATION</div>
+
+            <div class="entete">
+                BADGE D'ACCÈS - IDENTIFICATION
+            </div>
+
             <div class="contenu">
+
                 {% if personne.photo %}
-                    <img class="photo" src="{{ personne.photo.url }}" alt="Photo">
+                    <img
+                        class="photo"
+                        src="{{ personne.photo.url }}"
+                        alt="Photo"
+                    >
                 {% else %}
                     <div class="photo"></div>
                 {% endif %}
+
                 <div class="champs">
-                    <div><b>Nom :</b> {{ personne.nom|upper }}</div>
-                    <div><b>Prénom(s) :</b> {{ personne.prenoms }}</div>
-                    <div><b>Né(e) le :</b> {{ personne.date_naissance|date:"d-m-Y" }}</div>
-                    <div><b>Lieu de naissance :</b> {{ personne.lieu_naissance }}</div>
-                    <div><b>Nationalité :</b> {{ personne.nationalite }}</div>
-                    <div><b>Sexe :</b> {{ personne.get_sexe_display }}</div>
-                    <div><b>Profession :</b> {{ personne.profession }}</div>
+
+                    <div>
+                        <b>Nom :</b>
+                        {{ personne.nom|upper }}
+                    </div>
+
+                    <div>
+                        <b>Prénom(s) :</b>
+                        {{ personne.prenoms }}
+                    </div>
+
+                    <div>
+                        <b>Né(e) le :</b>
+                        {{ personne.date_naissance|date:"d-m-Y" }}
+                    </div>
+
+                    <div>
+                        <b>Lieu :</b>
+                        {{ personne.lieu_naissance }}
+                    </div>
+
+                    <div>
+                        <b>Nationalité :</b>
+                        {{ personne.nationalite }}
+                    </div>
+
                 </div>
-                <div class="matricule-carte">N° {{ personne.matricule }}</div>
-                <div class="footer">
-                    <span>Fait à {{ personne.lieu_emission }}, le {{ personne.date_emission|date:"d-m-Y" }}</span>
-                    <span>Expire le : {{ personne.date_expiration|date:"d-m-Y" }}</span>
+
+                <div class="groupe">
+                    GROUPE {{ personne.groupe }}
                 </div>
+
+                <div class="matricule-carte">
+                    N° {{ personne.matricule }}
+                </div>
+
             </div>
         </div>
 
+
+        <!-- VERSO -->
         <div class="carte carte-verso">
-            <div class="entete">INFORMATIONS COMPLÉMENTAIRES</div>
-            <div class="contenu">
-                <div><b>Taille :</b> {{ personne.taille_cm }} cm</div>
-                <div><b>Groupe sanguin :</b> {{ personne.groupe_sanguin }}</div>
-                <div><b>Père :</b> {{ personne.pere }}</div>
-                <div><b>Mère :</b> {{ personne.mere }}</div>
-                <div class="qr">
-                    <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR code contact d'urgence">
-                    <span>À prévenir en cas d'urgence</span>
-                </div>
+
+            <div class="entete">
+                CONTRÔLE D'ACCÈS
             </div>
+
+            <div class="verso-contenu">
+
+                <div class="qr">
+
+                    <img
+                        src="data:image/png;base64,{{ qr_base64 }}"
+                        alt="QR Code du badge"
+                    >
+
+                    <p>
+                        Scanner ce QR code pour vérifier l'accès
+                    </p>
+
+                    <div class="instructions">
+                        L'accès est contrôlé selon le groupe du titulaire
+                        et la minute actuelle.
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
-    <a class="bouton" href="{% url 'telecharger_pdf' personne.pk %}">Télécharger le PDF (recto/verso)</a>
-    <p><a href="{% url 'creer_carte' %}">Créer une autre carte</a></p>
+    <a
+        class="bouton"
+        href="{% url 'telecharger_pdf' personne.pk %}"
+    >
+        Télécharger le badge PDF
+    </a>
+
+    <p>
+        <a href="{% url 'creer_carte' %}">
+            Créer un autre badge
+        </a>
+    </p>
+
 </body>
+
 </html>

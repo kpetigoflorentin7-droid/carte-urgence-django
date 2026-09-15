@@ -2,50 +2,112 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Créer une carte d'urgence</title>
+    <title>Créer un badge d'accès</title>
+
     <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
-        h1 { font-size: 20px; }
-        fieldset { margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; }
-        label { display: block; margin-top: 10px; font-weight: bold; font-size: 13px; }
-        input, select { width: 100%; padding: 6px; margin-top: 4px; box-sizing: border-box; }
-        button { margin-top: 20px; padding: 10px 20px; background: #0B3D91; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 16px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            padding: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background: #0B3D91;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
-    <h1>Créer une carte d'urgence</h1>
+
+    <h1>Créer un badge d'accès</h1>
+
     <form method="post" enctype="multipart/form-data">
+
         {% csrf_token %}
 
         <fieldset>
             <legend>Identité</legend>
-            {{ form.nom.label_tag }} {{ form.nom }}
-            {{ form.prenoms.label_tag }} {{ form.prenoms }}
-            {{ form.date_naissance.label_tag }} {{ form.date_naissance }}
-            {{ form.sexe.label_tag }} {{ form.sexe }}
-            {{ form.lieu_naissance.label_tag }} {{ form.lieu_naissance }}
-            {{ form.nationalite.label_tag }} {{ form.nationalite }}
-            {{ form.profession.label_tag }} {{ form.profession }}
-            {{ form.photo.label_tag }} {{ form.photo }}
+
+            {{ form.nom.label_tag }}
+            {{ form.nom }}
+
+            {{ form.prenoms.label_tag }}
+            {{ form.prenoms }}
+
+            {{ form.date_naissance.label_tag }}
+            {{ form.date_naissance }}
+
+            {{ form.lieu_naissance.label_tag }}
+            {{ form.lieu_naissance }}
+
+            {{ form.nationalite.label_tag }}
+            {{ form.nationalite }}
+
+            {{ form.sexe.label_tag }}
+            {{ form.sexe }}
+
+            {{ form.photo.label_tag }}
+            {{ form.photo }}
+
         </fieldset>
 
         <fieldset>
-            <legend>Informations complémentaires</legend>
-            {{ form.taille_cm.label_tag }} {{ form.taille_cm }}
-            {{ form.groupe_sanguin.label_tag }} {{ form.groupe_sanguin }}
-            {{ form.pere.label_tag }} {{ form.pere }}
-            {{ form.mere.label_tag }} {{ form.mere }}
-            {{ form.lieu_emission.label_tag }} {{ form.lieu_emission }}
+            <legend>Accès</legend>
+
+            {{ form.groupe.label_tag }}
+            {{ form.groupe }}
+
+            {{ form.lieu_emission.label_tag }}
+            {{ form.lieu_emission }}
+
         </fieldset>
 
-        <fieldset>
-            <legend>Personne à prévenir en cas d'urgence</legend>
-            {{ form.contact_urgence_nom.label_tag }} {{ form.contact_urgence_nom }}
-            {{ form.contact_urgence_relation.label_tag }} {{ form.contact_urgence_relation }}
-            {{ form.contact_urgence_telephone.label_tag }} {{ form.contact_urgence_telephone }}
-        </fieldset>
+        <button type="submit">
+            Générer le badge
+        </button>
 
-        <button type="submit">Générer la carte</button>
     </form>
+
 </body>
 </html>
