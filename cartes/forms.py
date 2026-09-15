@@ -1,6 +1,6 @@
 from django import forms
 from .models import Personne
-
+from django.utils import timezone
 
 class PersonneForm(forms.ModelForm):
 
@@ -24,3 +24,13 @@ class PersonneForm(forms.ModelForm):
                 attrs={"type": "date"}
             ),
         }
+
+    def clean_date_naissance(self):
+        date = self.cleaned_data.get("date_naissance")
+
+        if date and date > timezone.now().date():
+            raise forms.ValidationError(
+                "La date de naissance ne peut pas être dans le futur."
+            )
+
+        return date
